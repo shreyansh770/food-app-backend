@@ -46,7 +46,7 @@ function setCreatedAt(req, res, next) {
 const userModel = require('../models/userModel');
 const {
     JWT_KEY
-} = require('../secrets');
+} = process.env || require('../secrets');
 
 async function signupUser(req, res) {
 

@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const {nodemailer_pass} = require("../secrets")
+const {nodemailer_pass} = process.env || require("../secrets")
 // userObj -> name , email ,password
 
 

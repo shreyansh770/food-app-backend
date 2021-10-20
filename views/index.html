@@ -9,38 +9,6 @@
 </head>
 
 <body>
-    <!-- <form>
-        <label>Email</label>
-        <input type="email">
-        <label>Name</label>
-        <input type="text">
-        <label>password</label>
-        <input type="password" class="password">
-        <label>confirm password</label>
-        <input type="password" class="cpassword">
-        <button>Signup</button>
-    </form>
-    <script 
-    src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js" 
-    crossorigin="anonymous">
-    </script>
-    <script>
-        let btn = document.querySelector("button");
-        btn.addEventListener("click", async function (e) {
-            // prevent page reload 
-            e.preventDefault();
-            // email
-            let email = document.querySelector("input[type='email']").value;
-            // password
-            let password = document.querySelector(".password").value;
-            let confirmPassword = document.querySelector(".cpassword").value;
-            //name
-            let name = document.querySelector("input[type='text']").value;
-            let resp = await axios.post("/auth/signup", 
-            { email, password, name,confirmPassword })
-            console.log('resp', resp);
-        })
-    </script> -->
     <button id="rzp-button1">Pay</button>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>

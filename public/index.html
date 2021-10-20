@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="">
+
+        <label for="">Email</label>
+        <input type="email"></input>
+        <label for="">Name</label>
+        <input type="text"></input>
+        <label for="">Password</label>
+        <input type="password"></input>
+        <button class="signup">Sign Up</button>
+
+    </form>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"
+        integrity="sha512-lTLt+W7MrmDfKam+r3D2LURu0F47a3QaW5nF0c6Hl0JDZ57ruei+ovbg7BrZ+0bjVJ5YgzsAWE+RreERbpPE1g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        let btn = document.querySelector('.signup');
+
+        let email = document.querySelector("input[type='email']")
+        let name = document.querySelector("input[type='text']")
+        let pw = document.querySelector("input[type='password']")
+
+
+        btn.addEventListener('click', async(e) => {
+            e.preventDefault();
+            let email = document.querySelector("input[type='email']").value
+            let name = document.querySelector("input[type='text']").value
+            let pw = document.querySelector("input[type='password']").value
+
+            let res = await axios.post("/auth/signup",{email,pw,name})
+            console.log(res);
+        })
+    </script>
+
+
+
+
+</body>
+
+</html>

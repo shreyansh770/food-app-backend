@@ -4,20 +4,53 @@ const cookieParser = require('cookie-parser')// insecure i.e y we use jwt
 const jwt = require('jsonwebtoken');
 
 
+const rateLimit = require("express-rate-limit");
+const hpp = require('hpp');
+const xss = require('xss-clean')
+const helmet = require("helmet");
+const sanitize = require('mongo-sanitize');
 
 const app = express(); //  server create
 
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // stopping that IP from sending request from sending more than max request in 15 mins otherwise blocking them for 15 mins
+    max: 100, // limit each IP to 100 requests per windowMs
+    message:
+    "Too many request from this IP, please try again after 15 mins"
+});
+
+
+// applying limiter for every router -> we can also apply diffrent rate limiters to diffrent account (check docs)
+app.use(limiter);
+
+app.use(helmet())
+
+app.use(express.json()) // express me jo bhi data a rha hai usko as json same interpret kro      
+
+// invalid query
+app.use(hpp({
+    whitelist:[ //-> whitelisting the only queries allowed all other query will be blocked
+        'select',
+        'page',
+        'sort',
+        'myquery'
+    ]
+}))
+
+// cross site scripting
+app.use(xss())
+
+// mongodb query sanitize
+app.use(mongoSanitize())
+
+
 app.use(cookieParser())
-
-
-
 let port = '8081';
 
 app.listen( process.env.PORT ||port,()=>{
     console.log(`Server is listening on port ${port}`);
 })
 
-app.use(express.json()) // express me jo bhi data a rha hai usko as json same interpret kro      
 
 app.use(express.static('public'));
 

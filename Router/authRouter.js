@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 
 const {
     bodyChecker
@@ -87,7 +88,9 @@ async function loginUser(req, res) {
                 email: req.body.email
             });
             if (user) {
-                if (req.body.password === user.password) {
+
+                let areEqual = await bcrypt.compare(req.body.password , user.password) // internal decryption to check
+                if (areEqual) {
 
                     // res.cookie(name,token_no,noneditable)
 

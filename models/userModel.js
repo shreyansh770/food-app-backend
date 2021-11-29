@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 
 const {db_link} = process.env || require('../secrets')
 
@@ -70,16 +71,27 @@ const userSchema = new mongoose.Schema({
 });
 
 //save hone se phle ye chle
-userSchema.pre('save',function(next){
+userSchema.pre('save',async function(next){
+
+    const salt = await bcrypt.genSalt(10); //  more the salting rounds more time it will take to decrypt code
+
+    this.password = await bcrypt.hash(this.password , salt) // encrpyting the password
+
     this.confirmPassword = undefined; // ye vali field db me nhi jaegi
+
 
     next()
 })
 
 
-userSchema.methods.resetHandler = function (password, confirmPassword) {
+userSchema.methods.resetHandler = async function (password, confirmPassword) {
 
-    this.password = password;
+
+    const salt = await bcrypt.genSalt(10); //  more the salting rounds more time it will take to decrypt code
+
+    this.password = await bcrypt.hash(this.password , salt) // encrpyting the password
+
+    // this.password = password;
     this.confirmPassword = confirmPassword;
     this.resetToken = undefined;
 }

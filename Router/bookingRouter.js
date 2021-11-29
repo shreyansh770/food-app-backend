@@ -5,7 +5,7 @@ const bookingRouter = express.Router();
 const bookingModel = require("../models/bookingModel")
 const userModel = require("../models/bookingModel")
 const Razorpay = require("razorpay")
-const {KEY_ID , KEY_SECRETS} = process.env || require('../secrets')
+const {KEY_ID , KEY_SECRETS} =  process.env ||require('../secrets')
 
 var razorpay = new Razorpay({
     key_id:KEY_ID,
